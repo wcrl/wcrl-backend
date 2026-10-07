@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -12,3 +12,11 @@ def get_teams():
         {"id": 1, "teamName": "TeamName1", "totalPoints": 10},
         {"id": 2, "teamName": "TeamName2", "totalPoints": 20},
     ]
+
+@app.post("/api/teams")
+def create_team():
+    data = request.get_json()
+    return {
+        "message": "Received team name",
+        "teamName": data
+    }
