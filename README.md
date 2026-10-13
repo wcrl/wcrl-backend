@@ -1,18 +1,6 @@
-Resource: https://flask.palletsprojects.com/en/stable/
+# Resource: 
+- [Flask Documentation](https://flask.palletsprojects.com/en/stable/)
+- [WRCL_db](https://github.com/wcrl/wcrl-db/tree/main)
 
 Random notes from Kevin:
 - flask --app app run --debug 
-
-Other notes:
-- api specification
-
-GET:
-- api/teams:
-    -teamName
-    -team_id
-    -totalPoints
-
-- api/members:
-    -discord_id
-    -users_name
-    -email
