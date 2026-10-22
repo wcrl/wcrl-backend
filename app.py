@@ -1,16 +1,28 @@
-from flask import Flask, request
-import database
+import asyncio
+import os
+
+from flask import Flask, jsonify
+from wcrl_db import Database
 
 app = Flask(__name__)
+DATABASE_PATH = os.environ["WCRL_DATABASE_PATH"]
 
-@app.route("/")
-def home():
-    return "<p>Hello WCRL!</p>"
+def fetch_teams():
+    async def fetch():
+        db = Database(DATABASE_PATH, readonly=True)
+        await db.connect()
 
-@app.route("/api/teams")
+        try:
+            return await db.teams.list_with_member_counts()
+        finally:
+            await db.close()
+    return asyncio.run(fetch())
+
+@app.route("/api/teams", methods = ["GET"])
 def get_teams():
-    return database.get_team_data
+    teams = fetch_teams()
+    return jsonify(teams)
 
-@app.route("/api/members")
-def get_member():
-    return database.get_member_data
+# Run Flask backend
+if __name__ == "__main__":
+    app.run(debug = True)

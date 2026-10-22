@@ -1,0 +1,2 @@
+Flask
+wcrl-db @ git+https://github.com/wcrl/wcrl-db.git
